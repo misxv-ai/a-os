@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#070707">
+    <title>Mis XV Años - Nazli Paola</title>
+
+    <!-- Fuentes Premium tipográficas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* NUEVA PALETA DE COLORES: ROJO PREMIUM Y NEGRO PROFUNDO */
+            --rojo-premium: #580c12;
+            /* Rojo vino profundo, elegante y de alta gama */
+            --rojo-brillo: #8b1821;
+            /* Tono vivo para el efecto glow de luz */
+            --rojo-soft-blur: #2c0508;
+            /* Rojo sumamente suave y opaco para botones inactivos */
+            --negro-absoluto: #070707;
+            /* Fondo base premium oscuro */
+            --negro-intermedio: #121212;
+            /* Contenedores y tarjetas flotantes */
+            --crema-luz: #f5f2eb;
+            /* Tipografías legibles principales */
+            --dorado-sutil: #d4af37;
+            /* Acentos decorativos de coronas o detalles */
+
+            --fuente-firma: 'Alex Brush', cursive;
+            --fuente-serif: 'Playfair Display', serif;
+            --fuente-sans: 'Montserrat', sans-serif;
+        }
+
+        /* Reset estructural estricto Mobile-First */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh; /* Ajuste iOS Safari: usa la altura visible real cuando está disponible */
+            background-color: var(--negro-absoluto);
+            font-family: var(--fuente-sans);
+            color: var(--crema-luz);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* DEGRADADO GLOBAL CONTINUO: Une toda la página eliminando cortes visuales drásticos */
+        .wrapper-degradado-global {
+            background: linear-gradient(to bottom,
+                    var(--negro-absoluto) 0%,
+                    var(--rojo-premium) 20%,
+                    var(--negro-absoluto) 40%,
+                    var(--rojo-premium) 60%,
+                    var(--negro-absoluto) 80%,
+                    var(--negro-absoluto) 100%);
+            background-size: 100% 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        /* --- LLUVIA DE FLORES ROJAS DECORATIVA (ORILLAS) --- */
+        .lluvia-petalos {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+            overflow: hidden;
+        }
+
+        .petalo-caida {
+            position: absolute;
+            top: -8%;
+            color: var(--rojo-brillo);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+            animation-name: caidaPetalo;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            will-change: transform, opacity;
+        }
+
+        @keyframes caidaPetalo {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 0.55;
+            }
+
+            92% {
+                opacity: 0.55;
+            }
+
+            100% {
+                transform: translateY(115vh) translateX(18px) rotate(320deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- EFECTO GLOW PREMIUM PARA BOTONES (Inspirado en Ver Ubicación) --- */
+        .btn-premium-glow {
+            display: inline-block;
+            background-color: var(--rojo-premium);
+            color: var(--crema-luz);
+            padding: 16px 36px;
+            font-family: var(--fuente-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--rojo-brillo);
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-align: center;
+            box-shadow: 0 0 15px rgba(139, 24, 33, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-premium-glow:active {
+            transform: scale(0.96);
+            box-shadow: 0 0 8px rgba(139, 24, 33, 0.9);
+        }
+
+        /* --- PANTALLA DE BIENVENIDA --- */
+        #pantalla-sobre {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh; /* Ajuste iOS Safari: usa la altura visible real cuando está disponible */
+            background-color: var(--negro-absoluto);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        #pantalla-sobre.abierto {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .titulo-bienvenida-sobre {
+            font-family: var(--fuente-serif);
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            color: var(--crema-luz);
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.4;
+            margin-bottom: 42px;
+            padding: 0 20px;
+            opacity: 0;
+            animation: apareceTituloSobre 1.3s ease forwards 0.3s;
+        }
+
+        @keyframes apareceTituloSobre {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- TARJETA DE SOBRE ROJO PREMIUM CON ROSAS NEGRAS --- */
+        .tarjeta-sobre-container {
+            position: relative;
+            width: 290px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .tarjeta-sobre-container:active {
+            transform: scale(0.97);
+        }
+
+        /* Halo difuminado detrás de la tarjeta, mismo estilo que el glow de los botones */
+        .tarjeta-sobre-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 340px;
+            height: 250px;
+            background: radial-gradient(ellipse, rgba(139, 24, 33, 0.55) 0%, rgba(139, 24, 33, 0) 70%);
+            filter: blur(28px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .tarjeta-sobre {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(155deg, var(--rojo-premium) 0%, #33060a 100%);
+            border: 1.5px solid var(--rojo-brillo);
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 20px rgba(139, 24, 33, 0.55), inset 0 0 25px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .tarjeta-sobre::before {
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            right: 9px;
+            bottom: 9px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tarjeta-sobre-inicial {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--fuente-firma);
+            font-size: 3.6rem;
+            color: var(--dorado-sutil);
+            opacity: 0.55;
+        }
+
+        .tarjeta-sobre-brillo {
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+            transform: skewX(-20deg);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 6;
+        }
+
+        /* Ramos de rosas negras en las esquinas, tal como en el diseño de referencia */
+        .ramo-rosas {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .ramo-superior-derecho {
+            top: -36px;
+            right: -36px;
+        }
+
+        .ramo-inferior-izquierdo {
+            bottom: -36px;
+            left: -36px;
+        }
+
+        .rosa-svg,
+        .hoja-svg {
+            position: absolute;
+            transform-origin: 50% 80%;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+            animation: balanceoRosa 3.4s ease-in-out infinite;
+        }
+
+        .hoja-svg {
+            animation-name: balanceoHoja;
+            animation-duration: 3s;
+        }
+
+        @keyframes balanceoRosa {
+
+            0%,
+            100% {
+                transform: rotate(-4deg);
+            }
+
+            50% {
+                transform: rotate(4deg);
+            }
+        }
+
+        @keyframes balanceoHoja {
+
+            0%,
+            100% {
+                transform: rotate(-6deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(5deg) scale(1.04);
+            }
+        }
+
+        /* --- ANIMACIÓN DE APERTURA --- */
+        .tarjeta-sobre-container.abriendo {
+            animation: aperturaTarjeta 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes aperturaTarjeta {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            35% {
+                transform: scale(1.06) rotate(-2deg);
+            }
+
+            70% {
+                transform: scale(1.1) rotate(1.5deg);
+            }
+
+            100% {
+                transform: scale(0.85) rotate(0deg);
+                opacity: 0;
+            }
+        }
+
+        .tarjeta-sobre-container.abriendo .tarjeta-sobre-brillo {
+            animation: brilloBarrido 0.9s ease forwards;
+        }
+
+        @keyframes brilloBarrido {
+            0% {
+                left: -60%;
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.9;
+            }
+
+            100% {
+                left: 130%;
+                opacity: 0;
+            }
+        }
+
+        .texto-abrir-sobre {
+            margin-top: 35px;
+            font-family: var(--fuente-serif);
+            font-style: italic;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--dorado-sutil);
+            opacity: 0.85;
+            animation: respiracion 2.5s infinite ease-in-out;
+        }
+
+        @keyframes respiracion {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(0.98);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        /* --- BOTÓN DE AUDIO FLOTANTE DISCRETO --- */
+        #control-musica-flotante {
+            position: fixed;
+            bottom: calc(25px + env(safe-area-inset-bottom));
+            right: calc(25px + env(safe-area-inset-right));
+            width: 50px;
+            height: 50px;
+            background-color: rgba(18, 18, 18, 0.8);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 24, 33, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            color: var(--crema-luz);
+            transition: all 0.3s ease;
+        }
+
+        #control-musica-flotante:active {
+            transform: scale(0.9);
+        }
+
+        /* --- SECCIÓN PORTADA PRINCIPAL LIMPIA --- */
+        .portada-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh; /* Ajuste iOS Safari: usa la altura visible real cuando está disponible */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 80px;
+            text-align: center;
+        }
+
+        .portada-imagen-fondo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Foto de portada limpia, integrada sin banners arriba ni rectángulos superpuestos */
+            /* Degradado sutil, confinado solo al borde inferior, para no afectar el conteo regresivo */
+            background: linear-gradient(to bottom,
+                    rgba(7, 7, 7, 0.35) 0%,
+                    rgba(7, 7, 7, 0.5) 85%,
+                    rgba(7, 7, 7, 0.78) 95%,
+                    var(--rojo-premium) 100%),
+                url('https://i.ibb.co/S4xQgVXx/7.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: 1;
+        }
+
+        .portada-contenido {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .portada-titulo-xv {
+            font-family: var(--fuente-serif);
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--dorado-sutil);
+            margin-bottom: 10px;
+        }
+
+        .portada-nombre {
+            font-family: var(--fuente-firma);
+            font-size: 5rem;
+            line-height: 1.1;
+            color: var(--crema-luz);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .portada-fecha {
+            font-family: var(--fuente-serif);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+
+        /* --- CUENTA REGRESIVA --- */
+        .contador-box {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 0 auto;
+            max-width: 360px;
+        }
+
+        .contador-unidad {
+            background-color: rgba(18, 18, 18, 0.65);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px 0;
+            width: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .contador-numero {
+            font-family: var(--fuente-serif);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--crema-luz);
+        }
+
+        .contador-etiqueta {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        /* --- SECCIONES GENERALES --- */
+        .seccion-invitacion {
+            padding: 90px 24px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        /* ANIMACIÓN AL SCROLL (FADE IN SUAVE TIPO LIBRO) */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .titulos-grandes {
+            font-family: var(--fuente-firma);
+            font-size: 3.8rem;
+            color: var(--crema-luz);
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- BORDES DIFUMINADOS EN IMÁGENES (VIGNETTE BLUR EFFECT) --- */
+        .contenedor-imagen-premium {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 30px auto;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        /* El truco del difuminado perimetral para fundirse con el fondo degradado de la web */
+        .contenedor-imagen-premium::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 25px 8px var(--negro-absoluto);
+            pointer-events: none;
+        }
+
+        /* --- TEXTOS COMPORTAMIENTO BENDICIÓN --- */
+        .parentesco-titulo {
+            font-family: var(--fuente-serif);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--dorado-sutil);
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+
+        .nombres-papas-padrinos {
+            font-family: var(--fuente-sans);
+            font-size: 1.15rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--crema-luz);
+        }
+
+        /* --- CRUZ EN MEMORIA (TONOS NEGROS CON ACENTO DORADO, CHICA Y AL LADO DEL NOMBRE) --- */
+        .cruz-memoria-contenedor {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .cruz-memoria-fila {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .cruz-memoria-svg {
+            flex-shrink: 0;
+            width: 11px;
+            height: auto;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6));
+            animation: respiroCruz 4.5s ease-in-out infinite;
+        }
+
+        @keyframes respiroCruz {
+
+            0%,
+            100% {
+                opacity: 0.75;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-2px);
+            }
+        }
+
+        .nombre-memoria {
+            font-family: var(--fuente-sans);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--crema-luz);
+        }
+
+        /* --- TARJETAS DE LUGAR E IGLESIA (CARRUSELES INTEGRADOS) --- */
+        .tarjeta-evento {
+            background-color: rgba(18, 18, 18, 0.55);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-top: 35px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Estructura del Carrusel Interno */
+        .carrusel-contenedor {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .carrusel-pista {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .carrusel-foto {
+            width: 33.333%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Difuminado perimetral específico para fotos del carrusel */
+        .carrusel-contenedor::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 20px 6px rgba(7, 7, 7, 0.8);
+            pointer-events: none;
+        }
+
+        .tarjeta-info-cuerpo {
+            padding: 35px 24px;
+        }
+
+        .lugar-nombre {
+            font-family: var(--fuente-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .lugar-direccion {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #bfaea6;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .lugar-hora {
+            font-family: var(--fuente-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 25px;
+            color: var(--crema-luz);
+        }
+
+        /* --- CÓDIGO DE VESTIMENTA --- */
+        .bloque-vestimenta {
+            background: rgba(20, 4, 6, 0.5);
+            border: 1px solid rgba(139, 24, 33, 0.2);
+            border-radius: 20px;
+            padding: 40px 20px;
+        }
+
+        .iconos-vestimenta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: var(--rojo-brillo);
+        }
+
+        /* --- SUGERENCIA DE REGALO: SOBRE CON ANIMACIÓN DE DINERO --- */
+        .sobre-dinero-trigger {
+            position: relative;
+            width: 130px;
+            height: 92px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rebotesobreDinero 2.6s ease-in-out infinite;
+        }
+
+        @keyframes rebotesobreDinero {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .sobre-dinero-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+            transition: transform 0.25s ease;
+        }
+
+        .sobre-dinero-trigger:active .sobre-dinero-svg {
+            transform: scale(0.92);
+        }
+
+        .confeti-dinero-contenedor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .confeti-dinero-pieza {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: var(--fuente-serif);
+            font-weight: 700;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            animation: estallidoDinero 1.1s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+            will-change: transform, opacity;
+        }
+
+        @keyframes estallidoDinero {
+            0% {
+                transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* --- GRAN GALERÍA DESLIZABLE MULTI-FOTO --- */
+        .galeria-carrusel-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+        }
+
+        .galeria-carrusel-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 20px 4px var(--negro-absoluto);
+            pointer-events: none;
+        }
+
+        .galeria-pista {
+            display: flex;
+            width: 1200%;
+            /* 12 Fotos */
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .galeria-slide {
+            width: 8.3333%;
+            height: 100%;
+        }
+
+        .galeria-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .galeria-flecha {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(18, 18, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--crema-luz);
+        }
+
+        .galeria-flecha.izq {
+            left: 12px;
+        }
+
+        .galeria-flecha.der {
+            right: 12px;
+        }
+
+        /* --- FORMULARIO RSVP ESTRICTAMENTE ORDENADO --- */
+        .rsvp-bloque-formulario {
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+            /* Espaciado perfecto y limpio */
+        }
+
+        .rsvp-campo-grupo {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .rsvp-campo-grupo label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #bfaea6;
+            font-weight: 500;
+            padding-left: 4px;
+        }
+
+        .rsvp-control-entrada {
+            width: 100%;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            color: var(--crema-luz);
+            font-family: var(--fuente-sans);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-control-entrada:focus {
+            border-color: var(--rojo-brillo);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Contenedor de Botones de Asistencia Ajustados */
+        .asistencia-selector-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .asistencia-opcion-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Estado Activo / Seleccionado (Estilo idéntico a Ver Ubicación con Glow) */
+        .asistencia-opcion-btn.seleccionado {
+            background-color: var(--rojo-premium);
+            color: var(--crema-luz);
+            border: 1px solid var(--rojo-brillo);
+            box-shadow: 0 0 15px rgba(139, 24, 33, 0.6);
+        }
+
+        /* Estado Inactivo / No Seleccionado (Rosita blur/suave translúcido sin glow) */
+        .asistencia-opcion-btn.inactivo {
+            background-color: var(--rojo-soft-blur);
+            color: rgba(245, 242, 235, 0.6);
+            border: 1px solid rgba(139, 24, 33, 0.15);
+            box-shadow: none;
+            /* Estrictamente sin brillo */
+        }
+
+        /* --- CONTACTO WHATSAPP --- */
+        #contacto {
+            padding-bottom: 120px;
+        }
+
+        /* --- MODAL DE ENVÍO DOBLE WHATSAPP (compatible iPhone/Android) --- */
+        .modal-whatsapp-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            background-color: rgba(7, 7, 7, 0.88);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            z-index: 100000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .modal-whatsapp-overlay.activo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-whatsapp-tarjeta {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            background: linear-gradient(155deg, var(--negro-intermedio) 0%, #1a0304 100%);
+            border: 1px solid rgba(139, 24, 33, 0.5);
+            border-radius: 20px;
+            padding: 34px 26px 28px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 25px rgba(139, 24, 33, 0.35);
+            transform: translateY(16px);
+            transition: transform 0.35s ease;
+        }
+
+        .modal-whatsapp-overlay.activo .modal-whatsapp-tarjeta {
+            transform: translateY(0);
+        }
+
+        .modal-whatsapp-cerrar {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            background: none;
+            border: none;
+            color: var(--crema-luz);
+            font-size: 1.4rem;
+            line-height: 1;
+            opacity: 0.6;
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        .modal-whatsapp-titulo {
+            font-family: var(--fuente-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dorado-sutil);
+            margin-bottom: 12px;
+        }
+
+        .modal-whatsapp-texto {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: #d8cfc8;
+            font-weight: 300;
+            margin-bottom: 26px;
+        }
+
+        .modal-whatsapp-btn {
+            width: 100%;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-whatsapp-btn:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .modal-whatsapp-btn.enviado {
+            background-color: var(--rojo-soft-blur);
+            border-color: rgba(139, 24, 33, 0.25);
+            box-shadow: none;
+            opacity: 0.75;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- DEFINICIONES SVG REUTILIZABLES: ROSA Y HOJA EN TONOS NEGROS -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <symbol id="petaloRosaNegra" viewBox="0 0 100 100">
+                <path d="M50 50 C36 42 32 18 50 4 C68 18 64 42 50 50 Z" />
+            </symbol>
+            <symbol id="rosaNegra" viewBox="0 0 100 100">
+                <g fill="#161616" stroke="#4a4a4a" stroke-width="0.8" stroke-opacity="0.6">
+                    <use xlink:href="#petaloRosaNegra" href="#petaloRosaNegra" transform="rotate(0 50 50)" />
+                    <use xlink:href="#petaloRosaNegra" href="#petaloRosaNegra" transform="rotate(72 50 50)" />
+                    <use xlink:href="#petaloRosaNegra" href="#petaloRosaNegra" transform="rotate(144 50 50)" />
+                    <use xlink:href="#petaloRosaNegra" href="#petaloRosaNegra" transform="rotate(216 50 50)" />
+                    <use xlink:href="#petaloRosaNegra" href="#petaloRosaNegra" transform="rotate(288 50 50)" />
+                    <circle cx="50" cy="50" r="9" fill="#0a0a0a" />
+                </g>
+            </symbol>
+            <symbol id="hojaOscura" viewBox="0 0 40 100">
+                <path d="M20 98 C4 70 4 30 20 2 C36 30 36 70 20 98 Z" fill="#141f16" stroke="#37402f"
+                    stroke-width="0.8" />
+                <line x1="20" y1="94" x2="20" y2="6" stroke="#37402f" stroke-width="0.8" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- 1. PANTALLA DE BIENVENIDA CON TARJETA DE ROSAS NEGRAS -->
+    <div id="pantalla-sobre" onclick="ejecutarAperturaSobre()">
+        <h1 class="titulo-bienvenida-sobre">Bienvenidos a la Invitación de mis XV</h1>
+
+        <div class="tarjeta-sobre-container" id="sobre-interactivo">
+            <div class="tarjeta-sobre">
+                <span class="tarjeta-sobre-inicial">N</span>
+            </div>
+            <div class="tarjeta-sobre-brillo"></div>
+
+            <!-- Ramo esquina superior derecha -->
+            <div class="ramo-rosas ramo-superior-derecho">
+                <svg class="rosa-svg" style="width:58px; top:8px; right:44px; animation-delay:0s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:44px; top:0px; right:4px; animation-delay:0.3s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:48px; top:42px; right:0px; animation-delay:0.6s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:32px; top:64px; right:50px; animation-delay:0.9s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="hoja-svg" style="width:26px; top:30px; right:30px; animation-delay:0.2s;"
+                    viewBox="0 0 40 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#hojaOscura" href="#hojaOscura" />
+                </svg>
+                <svg class="hoja-svg" style="width:22px; top:66px; right:76px; animation-delay:0.5s;"
+                    viewBox="0 0 40 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#hojaOscura" href="#hojaOscura" />
+                </svg>
+            </div>
+
+            <!-- Ramo esquina inferior izquierda, en cascada como en el diseño de referencia -->
+            <div class="ramo-rosas ramo-inferior-izquierdo">
+                <svg class="rosa-svg" style="width:56px; bottom:66px; left:0px; animation-delay:0.1s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:46px; bottom:94px; left:32px; animation-delay:0.4s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:50px; bottom:32px; left:8px; animation-delay:0.7s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:36px; bottom:6px; left:44px; animation-delay:1s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="rosa-svg" style="width:28px; bottom:108px; left:62px; animation-delay:1.3s;"
+                    viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#rosaNegra" href="#rosaNegra" />
+                </svg>
+                <svg class="hoja-svg" style="width:24px; bottom:48px; left:58px; animation-delay:0.2s;"
+                    viewBox="0 0 40 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#hojaOscura" href="#hojaOscura" />
+                </svg>
+                <svg class="hoja-svg" style="width:22px; bottom:16px; left:16px; animation-delay:0.6s;"
+                    viewBox="0 0 40 100" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <use xlink:href="#hojaOscura" href="#hojaOscura" />
+                </svg>
+            </div>
+        </div>
+
+        <p class="texto-abrir-sobre">Toca la tarjeta para ingresar</p>
+    </div>
+
+    <!-- AUDIO DE FONDO -->
+    <audio id="musica-invitacion" loop preload="auto" playsinline>
+        <source src="https://files.catbox.moe/033ol4.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- REPRODUCTOR FLOTANTE DISCRETO -->
+    <div id="control-musica-flotante" onclick="controlarEstadoMusica()">
+        <i class="fas fa-volume-mute" id="icono-audio"></i>
+    </div>
+
+    <!-- LLUVIA DE FLORES ROJAS DECORATIVA (se genera por JS) -->
+    <div class="lluvia-petalos" id="lluvia-petalos"></div>
+
+    <!-- WRAPPER DEGRADADO GLOBAL CONTINUO -->
+    <div class="wrapper-degradado-global">
+
+        <!-- 2. PORTADA PRINCIPAL LIMPIA -->
+        <header class="portada-hero">
+            <div class="portada-imagen-fondo"></div>
+            <div class="portada-contenido scroll-reveal">
+                <h2 class="portada-titulo-xv">Mis XV Años</h2>
+                <h1 class="portada-nombre">Nazli Paola</h1>
+                <p class="portada-fecha">Sábado 12 de Septiembre de 2026</p>
+
+                <!-- Cuenta Regresiva -->
+                <div class="contador-box">
+                    <div class="contador-unidad"><span class="contador-numero" id="timer-dias">00</span><span
+                            class="contador-etiqueta">Días</span></div>
+                    <div class="contador-unidad"><span class="contador-numero" id="timer-horas">00</span><span
+                            class="contador-etiqueta">Hrs</span></div>
+                    <div class="contador-unidad"><span class="contador-numero" id="timer-minutos">00</span><span
+                            class="contador-etiqueta">Min</span></div>
+                    <div class="contador-unidad"><span class="contador-numero" id="timer-segundos">00</span><span
+                            class="contador-etiqueta">Seg</span></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 3. SECCIÓN BENDICIÓN -->
+        <section class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes">Con la Bendición de Dios</h2>
+            <p class="parentesco-titulo">Y mis Padres</p>
+            <p class="nombres-papas-padrinos">Carlos Alberto Figueroa Govea<br>Esli Echeverría Gallarzo</p>
+
+            <div class="cruz-memoria-contenedor scroll-reveal">
+                <p class="parentesco-titulo">En Memoria de Mi Madre</p>
+                <div class="cruz-memoria-fila">
+                    <svg class="cruz-memoria-svg" viewBox="0 0 60 96" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradCruzMemoria" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#2c2c2c" />
+                                <stop offset="100%" stop-color="#050505" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="24" y="2" width="12" height="92" rx="3.5" fill="url(#gradCruzMemoria)"
+                            stroke="#d4af37" stroke-width="0.6" stroke-opacity="0.55" />
+                        <rect x="4" y="26" width="52" height="12" rx="3.5" fill="url(#gradCruzMemoria)"
+                            stroke="#d4af37" stroke-width="0.6" stroke-opacity="0.55" />
+                        <circle cx="30" cy="32" r="3.2" fill="#d4af37" opacity="0.85" />
+                    </svg>
+                    <p class="nombre-memoria">Verónica Ramírez Mata</p>
+                </div>
+            </div>
+
+            <p class="parentesco-titulo" style="margin-top: 35px;">Mis Padrinos</p>
+            <p class="nombres-papas-padrinos">Sandra Govea<br>Oscar Ibarra</p>
+
+            <p
+                style="font-family: var(--fuente-serif); font-style: italic; margin-top: 45px; font-size: 1.1rem; line-height: 1.6; color: var(--dorado-sutil);">
+                "Gracias por ser parte de este sueño que celebro junto a mi familia."
+            </p>
+        </section>
+
+        <!-- 4. SECCIÓN CEREMONIA -->
+        <section class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes">Ceremonia</h2>
+            <div class="tarjeta-evento">
+                <!-- Carrusel Iglesia Automático (2 Segundos) -->
+                <div class="carrusel-contenedor">
+                    <div class="carrusel-pista" id="pista-iglesia">
+                        <img src="https://i.ibb.co/0RWQDKF4/iglesia1.jpg" alt="Iglesia 1"
+                            class="carrusel-foto">
+                        <img src="https://i.ibb.co/S4HBFYYR/iglesia2.jpg" alt="Iglesia 2"
+                            class="carrusel-foto">
+                        <img src="https://i.ibb.co/V0ZwFXvc/iglesia3.jpg" alt="Iglesia 3"
+                            class="carrusel-foto">
+                    </div>
+                </div>
+                <div class="tarjeta-info-cuerpo">
+                    <h3 class="lugar-nombre">Parroquia Jesús El Salvador</h3>
+                    <p class="lugar-direccion">C. Leyes de Reforma 5824, Reforma, 32600 Juárez, Chih.</p>
+                    <p class="lugar-hora">5:30 PM</p>
+                    <a href="https://maps.app.goo.gl/u7Z9EGFfLoDqynka9" target="_blank" class="btn-premium-glow">Ver
+                        Ubicación</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SECCIÓN RECEPCIÓN -->
+        <section class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes">Recepción</h2>
+            <div class="tarjeta-evento">
+                <!-- Carrusel Salón Automático (2 Segundos) -->
+                <div class="carrusel-contenedor">
+                    <div class="carrusel-pista" id="pista-salon">
+                        <img src="https://i.ibb.co/HLff4f4B/salon1.jpg" alt="Salón 1"
+                            class="carrusel-foto">
+                        <img src="https://i.ibb.co/5X14w0WZ/salon2.jpg" alt="Salón 2"
+                            class="carrusel-foto">
+                        <img src="https://i.ibb.co/7PpFPwv/salon3.jpg" alt="Salón 3"
+                            class="carrusel-foto">
+                    </div>
+                </div>
+                <div class="tarjeta-info-cuerpo">
+                    <h3 class="lugar-nombre">Cocos Terraza</h3>
+                    <p class="lugar-direccion">Almagre 1004, Col. vista hermosa, 32295 Juárez, Chih.</p>
+                    <p class="lugar-hora">9:00 PM - 2:00 AM</p>
+                    <a href="https://maps.app.goo.gl/EX9onntkuuEcPy4SA" target="_blank" class="btn-premium-glow">Ver
+                        Ubicación</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SECCIÓN VESTIMENTA -->
+        <section class="seccion-invitacion scroll-reveal">
+            <div class="bloque-vestimenta">
+                <h2 class="titulos-grandes" style="font-size: 2.8rem; margin-bottom: 15px;">Código de Vestimenta</h2>
+                <div class="iconos-vestimenta">
+                    <i class="fas fa-user-tie"></i>
+                    <i class="fas fa-person-dress"></i>
+                </div>
+                <p style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;">Semiformal</p>
+                <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">Agradecemos evitar el uso de prendas color
+                    rojo.</p>
+            </div>
+        </section>
+
+        <!-- 7. SUGERENCIA DE REGALO: SOBRE CON ANIMACIÓN DE DINERO -->
+        <section class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes">Sugerencia de Regalo</h2>
+            <p style="font-size: 0.9rem; font-weight: 300; margin-bottom: 30px; line-height: 1.6;">
+                Tu presencia es mi mayor regalo, pero si deseas tener un detalle conmigo, la tradición es regalar
+                dinero en efectivo a la festejada dentro de un sobre el día del evento.
+            </p>
+
+            <div class="sobre-dinero-trigger" id="sobre-dinero" onclick="lanzarConfettiDinero()">
+                <div class="confeti-dinero-contenedor" id="confeti-dinero-contenedor"></div>
+                <svg class="sobre-dinero-svg" viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="94" height="64" rx="6" fill="#580c12"
+                        stroke="#d4af37" stroke-width="2" />
+                    <path d="M5 8 L50 40 L95 8" fill="none" stroke="#d4af37" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <text x="50" y="56" text-anchor="middle" font-family="'Playfair Display', serif"
+                        font-size="26" font-weight="700" fill="#d4af37">$</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 8. GRAN GALERÍA DE FOTOS (12 SLIDES) -->
+        <section class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes">Mis Fotos</h2>
+            <div class="galeria-carrusel-container">
+                <button class="galeria-flecha izq" onclick="deslizarGaleria(-1)"><i
+                        class="fas fa-chevron-left"></i></button>
+                <div class="galeria-pista" id="pista-galeria-fotos">
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/v6R1bhDH/1.jpg" alt="Foto 1"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/TMM67mPG/2.jpg" alt="Foto 2"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/F4CkNHjX/3.jpg" alt="Foto 3"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/chLqgbmR/4.jpg" alt="Foto 4"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/7t5RJBWm/5.jpg" alt="Foto 5"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/F47LsHzb/6.jpg" alt="Foto 6"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/S4xQgVXx/7.jpg" alt="Foto 7"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/pjthMs14/8.jpg" alt="Foto 8"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/KHvX1PX/9.jpg" alt="Foto 9"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/d4Bbchvv/10.jpg" alt="Foto 10"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/xyzS5Hh/11.jpg" alt="Foto 11"></div>
+                    <div class="galeria-slide"><img
+                            src="https://i.ibb.co/gZh0t69c/12.jpg" alt="Foto 12"></div>
+                </div>
+                <button class="galeria-flecha der" onclick="deslizarGaleria(1)"><i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- 9. RSVP FORMULARIO TOTALMENTE REESTRUCTURADO EN ORDEN -->
+        <section class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes">Confirmar Asistencia</h2>
+            <p style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 35px;">Agradecemos confirmar antes del 15 de
+                Agosto.</p>
+
+            <form class="rsvp-bloque-formulario" id="rsvp-invitacion-form" onsubmit="procesarEnvioRsvp(event)">
+
+                <!-- CAMPO 1: Nombre del invitado -->
+                <div class="rsvp-campo-grupo">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="rsvp-nombre" class="rsvp-control-entrada" placeholder="Ej. Familia Figueroa"
+                        required>
+                </div>
+
+                <!-- CAMPO 2: Selección de Asistencia (Arreglados botones y glows) -->
+                <div class="rsvp-campo-grupo">
+                    <label>¿Asistirá al Evento?</label>
+                    <div class="asistencia-selector-row">
+                        <div class="asistencia-opcion-btn seleccionado" id="rsvp-asiste-si"
+                            onclick="cambiarEstadoAsistencia(true)">
+                            ¡Asistiré!
+                        </div>
+                        <div class="asistencia-opcion-btn inactivo" id="rsvp-asiste-no"
+                            onclick="cambiarEstadoAsistencia(false)">
+                            No podré
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAMPO 3: Número de Personas (Máximo 4 por familia) -->
+                <div class="rsvp-campo-grupo" id="contenedor-select-personas">
+                    <label>Número de Personas</label>
+                    <select id="rsvp-cantidad-pax" class="rsvp-control-entrada"
+                        style="appearance: none; -webkit-appearance: none;">
+                        <option value="1">1 Persona</option>
+                        <option value="2">2 Personas</option>
+                        <option value="3">3 Personas</option>
+                        <option value="4">4 Personas (Máximo)</option>
+                    </select>
+                </div>
+
+                <!-- CAMPO 4: Mensaje Textarea -->
+                <div class="rsvp-campo-grupo">
+                    <label id="rsvp-label-mensaje">Mensaje de Felicitación</label>
+                    <textarea id="rsvp-mensaje" class="rsvp-control-entrada" style="resize: none; height: 110px;"
+                        placeholder="Escribe un mensaje especial..."></textarea>
+                </div>
+
+                <!-- Botón de Envío Principal (abre el paso de envío a los dos números) -->
+                <button type="submit" class="btn-premium-glow" style="width: 100%; border: none;">Enviar
+                    Respuesta</button>
+            </form>
+        </section>
+
+        <!-- 10. SECCIÓN CONTACTO -->
+        <section id="contacto" class="seccion-invitacion scroll-reveal">
+            <h2 class="titulos-grandes" style="font-size: 2.8rem; margin-bottom: 15px;">Contáctanos</h2>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 30px;">Si tienes alguna duda sobre el evento,
+                puedes comunicarte directamente.</p>
+            <button type="button" onclick="abrirModalContacto()" class="btn-premium-glow" style="border: none;">Contactar</button>
+        </section>
+
+    </div>
+
+    <!-- MODAL DE ENVÍO DOBLE WHATSAPP: compatible con iPhone (evita el bloqueo de ventanas emergentes de Safari) -->
+    <div id="modal-envio-whatsapp" class="modal-whatsapp-overlay">
+        <div class="modal-whatsapp-tarjeta">
+            <button type="button" class="modal-whatsapp-cerrar" onclick="cerrarModalWhatsapp()" aria-label="Cerrar">&times;</button>
+            <p class="modal-whatsapp-titulo" id="modal-whatsapp-titulo">¡Un último paso!</p>
+            <p class="modal-whatsapp-texto" id="modal-whatsapp-texto">Toca los dos botones, uno por uno, para que tu mensaje
+                llegue a ambos contactos.</p>
+            <a href="#" id="modal-whatsapp-link-1" class="btn-premium-glow modal-whatsapp-btn" target="_blank"
+                rel="noopener" onclick="marcarBotonEnviado(this)"><i class="fab fa-whatsapp"></i> Enviar a Contacto 1</a>
+            <a href="#" id="modal-whatsapp-link-2" class="btn-premium-glow modal-whatsapp-btn" target="_blank"
+                rel="noopener" onclick="marcarBotonEnviado(this)"><i class="fab fa-whatsapp"></i> Enviar a Contacto 2</a>
+        </div>
+    </div>
+
+    <script>
+        // --- NÚMEROS DE WHATSAPP QUE RECIBEN LAS CONFIRMACIONES Y MENSAJES ---
+        const NUMERO_WHATSAPP_1 = '526565822134';
+        const NUMERO_WHATSAPP_2 = '526562654927';
+
+        // --- CONTROL DE APERTURA DE SOBRE PREMIUM ---
+        let musicaInicializada = false;
+        const reproductorMusica = document.getElementById('musica-invitacion');
+        const iconoAudioFlotante = document.getElementById('icono-audio');
+
+        function ejecutarAperturaSobre() {
+            const wrapperSobre = document.getElementById('sobre-interactivo');
+            const pantallaSobre = document.getElementById('pantalla-sobre');
+
+            wrapperSobre.classList.add('abriendo');
+
+            // IMPORTANTE PARA IPHONE: reproducir el audio de inmediato, de forma síncrona
+            // dentro del propio evento de toque. Safari/iOS solo permite iniciar audio
+            // si el play() ocurre en el mismo instante del gesto del usuario; si se retrasa
+            // con un setTimeout, iOS lo bloquea silenciosamente.
+            reproductorMusica.play().then(() => {
+                musicaInicializada = true;
+                iconoAudioFlotante.className = "fas fa-volume-up";
+            }).catch(err => console.log("Interacción requerida para reproducción de audio"));
+
+            // La animación visual de apertura sí puede ir retrasada, ya que no depende del audio.
+            setTimeout(() => {
+                pantallaSobre.classList.add('abierto');
+            }, 1000);
+        }
+
+        function controlarEstadoMusica() {
+            if (musicaInicializada) {
+                reproductorMusica.pause();
+                iconoAudioFlotante.className = "fas fa-volume-mute";
+                musicaInicializada = false;
+            } else {
+                reproductorMusica.play();
+                iconoAudioFlotante.className = "fas fa-volume-up";
+                musicaInicializada = true;
+            }
+        }
+
+        // --- ANIMACIÓN DE SCROLL FADE IN LIBRO ---
+        const opcionesObserver = { threshold: 0.12 };
+        const observerScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, opcionesObserver);
+        document.querySelectorAll('.scroll-reveal').forEach(elemento => observerScroll.observe(elemento));
+
+        // --- CUENTA REGRESIVA ESTRICTA ---
+        // Formato ISO 8601 explícito: se interpreta igual en Chrome, Safari/iOS y Firefox.
+        const marcaTiempoDestino = new Date('2026-09-12T17:30:00').getTime();
+        setInterval(() => {
+            const instanteActual = new Date().getTime();
+            const deltaTiempo = marcaTiempoDestino - instanteActual;
+            if (deltaTiempo < 0) return;
+
+            document.getElementById('timer-dias').innerText = String(Math.floor(deltaTiempo / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById('timer-horas').innerText = String(Math.floor((deltaTiempo % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById('timer-minutos').innerText = String(Math.floor((deltaTiempo % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById('timer-segundos').innerText = String(Math.floor((deltaTiempo % (1000 * 60)) / 1000)).padStart(2, '0');
+        }, 1000);
+
+        // --- BUCLE DE CARRUSELES AUTOMÁTICOS (IGLESIA Y SALÓN) ---
+        let indiceCarruselIglesia = 0;
+        let indiceCarruselSalon = 0;
+        const pistaIglesia = document.getElementById('pista-iglesia');
+        const pistaSalon = document.getElementById('pista-salon');
+
+        setInterval(() => {
+            indiceCarruselIglesia = (indiceCarruselIglesia + 1) % 3;
+            pistaIglesia.style.transform = `translateX(-${indiceCarruselIglesia * 33.333}%)`;
+
+            indiceCarruselSalon = (indiceCarruselSalon + 1) % 3;
+            pistaSalon.style.transform = `translateX(-${indiceCarruselSalon * 33.333}%)`;
+        }, 2000);
+
+        // --- ANIMACIÓN DE DINERO AL TOCAR EL SOBRE DE REGALO ---
+        function lanzarConfettiDinero() {
+            const contenedor = document.getElementById('confeti-dinero-contenedor');
+            const colores = ['#d4af37', '#8b1821', '#f5f2eb'];
+            const totalPiezas = 16;
+
+            for (let i = 0; i < totalPiezas; i++) {
+                const pieza = document.createElement('div');
+                pieza.className = 'confeti-dinero-pieza';
+                pieza.textContent = '$';
+                pieza.style.color = colores[i % colores.length];
+
+                const angulo = Math.random() * Math.PI * 2;
+                const distancia = 70 + Math.random() * 85;
+                const dx = Math.cos(angulo) * distancia;
+                const dy = (Math.sin(angulo) * distancia) - 55; // Sesgo hacia arriba, como si se aventara
+                const rotacion = (Math.random() * 320) - 160;
+                const tamano = 1 + Math.random() * 0.9;
+
+                pieza.style.setProperty('--dx', dx + 'px');
+                pieza.style.setProperty('--dy', dy + 'px');
+                pieza.style.setProperty('--rot', rotacion + 'deg');
+                pieza.style.fontSize = tamano + 'rem';
+                pieza.style.animationDelay = (Math.random() * 0.12) + 's';
+
+                contenedor.appendChild(pieza);
+                setTimeout(() => pieza.remove(), 1300);
+            }
+        }
+
+        // --- INTERACTIVIDAD SWIPE DE GALERÍA DE FOTOS (12 FOTOS) ---
+        let indiceGaleriaActual = 0;
+        const pistaGaleria = document.getElementById('pista-galeria-fotos');
+
+        function deslizarGaleria(direccion) {
+            indiceGaleriaActual = (indiceGaleriaActual + direccion + 12) % 12;
+            pistaGaleria.style.transform = `translateX(-${indiceGaleriaActual * 8.3333}%)`;
+        }
+
+        // --- LÓGICA RSVP INTERACTIVA Y COMPORTAMIENTO DE BOTONES ---
+        let statusAsistenciaConfirmada = true;
+
+        function cambiarEstadoAsistencia(confirmacion) {
+            statusAsistenciaConfirmada = confirmacion;
+            const botonSi = document.getElementById('rsvp-asiste-si');
+            const botonNo = document.getElementById('rsvp-asiste-no');
+            const bloquePersonas = document.getElementById('contenedor-select-personas');
+            const labelMensaje = document.getElementById('rsvp-label-mensaje');
+
+            if (confirmacion) {
+                botonSi.className = "asistencia-opcion-btn seleccionado";
+                botonNo.className = "asistencia-opcion-btn inactivo";
+                bloquePersonas.style.display = "flex";
+                labelMensaje.innerText = "Mensaje de Felicitación";
+            } else {
+                botonSi.className = "asistencia-opcion-btn inactivo";
+                botonNo.className = "asistencia-opcion-btn seleccionado";
+                bloquePersonas.style.display = "none";
+                labelMensaje.innerText = "Motivo de Inasistencia";
+            }
+        }
+
+        // --- ENVÍO A LOS DOS NÚMEROS DE WHATSAPP (COMPATIBLE CON IPHONE) ---
+        // NOTA TÉCNICA: en iOS, Safari (y los navegadores internos de WhatsApp/Instagram)
+        // bloquean automáticamente una segunda ventana emergente (window.open) abierta por
+        // script dentro del mismo clic. Por eso, en lugar de intentar abrir los dos chats
+        // de forma automática (lo cual solo funciona en algunos navegadores de Android),
+        // mostramos un pequeño paso adicional con dos botones reales: al tocar cada uno,
+        // es el propio usuario quien genera el gesto de navegación, así que iPhone y
+        // Android abren WhatsApp sin ningún bloqueo.
+        function abrirModalEnvioDoble(mensaje, titulo, texto) {
+            const textoCodificado = encodeURIComponent(mensaje);
+            const link1 = document.getElementById('modal-whatsapp-link-1');
+            const link2 = document.getElementById('modal-whatsapp-link-2');
+
+            link1.href = `https://wa.me/${NUMERO_WHATSAPP_1}?text=${textoCodificado}`;
+            link2.href = `https://wa.me/${NUMERO_WHATSAPP_2}?text=${textoCodificado}`;
+
+            // Reinicia el estado visual de "enviado" cada vez que se abre el modal
+            [link1, link2].forEach(boton => boton.classList.remove('enviado'));
+
+            document.getElementById('modal-whatsapp-titulo').innerText = titulo;
+            document.getElementById('modal-whatsapp-texto').innerText = texto;
+            document.getElementById('modal-envio-whatsapp').classList.add('activo');
+        }
+
+        function cerrarModalWhatsapp() {
+            document.getElementById('modal-envio-whatsapp').classList.remove('activo');
+        }
+
+        function marcarBotonEnviado(boton) {
+            boton.classList.add('enviado');
+        }
+
+        function procesarEnvioRsvp(evento) {
+            evento.preventDefault();
+            const nombreCompleto = document.getElementById('rsvp-nombre').value;
+            const mensajeTexto = document.getElementById('rsvp-mensaje').value;
+            let cadenaFormateada = "";
+
+            if (statusAsistenciaConfirmada) {
+                const totalPax = document.getElementById('rsvp-cantidad-pax').value;
+                cadenaFormateada = `¡Hola! Confirmo mi asistencia a los XV años de Nazli Paola.\n\n*Nombre:* ${nombreCompleto}\n*Lugares reservados:* ${totalPax}\n*Mensaje:* ${mensajeTexto}`;
+            } else {
+                cadenaFormateada = `¡Hola! Lamentablemente no podré asistir a los XV años de Nazli Paola.\n\n*Nombre:* ${nombreCompleto}\n*Motivo:* ${mensajeTexto}`;
+            }
+
+            abrirModalEnvioDoble(
+                cadenaFormateada,
+                "¡Un último paso!",
+                "Toca los dos botones, uno por uno, para que tu confirmación llegue a ambos contactos."
+            );
+        }
+
+        // --- BOTÓN DE CONTACTO: MISMO MECANISMO DE DOS TOQUES PARA LLEGAR A AMBOS NÚMEROS ---
+        function abrirModalContacto() {
+            const link1 = document.getElementById('modal-whatsapp-link-1');
+            const link2 = document.getElementById('modal-whatsapp-link-2');
+
+            link1.href = `https://wa.me/${NUMERO_WHATSAPP_1}`;
+            link2.href = `https://wa.me/${NUMERO_WHATSAPP_2}`;
+
+            [link1, link2].forEach(boton => boton.classList.remove('enviado'));
+
+            document.getElementById('modal-whatsapp-titulo').innerText = "Contáctanos";
+            document.getElementById('modal-whatsapp-texto').innerText = "Toca cada botón para escribirnos por WhatsApp.";
+            document.getElementById('modal-envio-whatsapp').classList.add('activo');
+        }
+
+        // --- GENERACIÓN DE LA LLUVIA DE FLORES ROJAS (SOLO EN LAS ORILLAS) ---
+        (function generarLluviaDeFlores() {
+            const contenedorPetalos = document.getElementById('lluvia-petalos');
+            const totalPetalos = 14; // Cantidad discreta para no saturar
+
+            for (let i = 0; i < totalPetalos; i++) {
+                const petalo = document.createElement('div');
+                petalo.className = 'petalo-caida';
+                petalo.textContent = '🌹';
+
+                // Alterna banda izquierda (0-12%) y banda derecha (88-100%) => "orillas"
+                const enBandaIzquierda = i % 2 === 0;
+                const posicionHorizontal = enBandaIzquierda
+                    ? Math.random() * 12
+                    : 88 + Math.random() * 12;
+
+                const duracion = 11 + Math.random() * 9; // 11s - 20s
+                const retrasoNegativo = Math.random() * duracion; // Para que ya vayan cayendo al cargar
+                const tamano = 1 + Math.random() * 0.7; // 1rem - 1.7rem
+
+                petalo.style.left = posicionHorizontal + '%';
+                petalo.style.fontSize = tamano + 'rem';
+                petalo.style.animationDuration = duracion + 's';
+                petalo.style.animationDelay = '-' + retrasoNegativo + 's';
+
+                contenedorPetalos.appendChild(petalo);
+            }
+        })();
+    </script>
+</body>
+
+</html>
